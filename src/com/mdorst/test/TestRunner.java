@@ -79,6 +79,35 @@ public class TestRunner {
     }
 
     /**
+     * Test a code segment safely, with all exceptions caught and handled as test failures.
+     * This method expects a lambda expression which contains the code to be tested.
+     * This method is curried, and returns a {@code FunctionReturnTest}.
+     * The user is expected to call {@code returns} on this object, passing in the value
+     * expected by the test.
+     * Ex:
+     * {@code
+     *      function(() -> 3 + 2).returns(5);
+     * }
+     * @param f The code segment, usually a lambda, which returns the value to be tested.
+     * @return The curried function to be called with the expected result.
+     */
+    public FunctionReturnTest function(TestFunction f) {
+        return (obj) -> {
+            Object result;
+            try {
+                result = f.call();
+            } catch (Throwable e) {
+                fail(e.getMessage() + " was thrown.");
+                return;
+            }
+            if (obj != null && obj.equals(result))
+                pass(result + " == " + obj);
+            else
+                fail(result + " != " + obj);
+        };
+    }
+
+    /**
      * Tests that a method throws a specific exception.
      * @param receiver The object that the method must be called on
      * @param methodName The name of the method to be called
