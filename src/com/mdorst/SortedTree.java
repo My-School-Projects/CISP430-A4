@@ -2,33 +2,30 @@ package com.mdorst;
 
 public class SortedTree<E extends Comparable<? super E>> {
 
-    class Balance {
-        int left;
-        int right;
-
-        Balance() {
-            left = right = 0;
-        }
-    }
-
     class Node {
         E data;
         Node left, right;
         int depth;
-        Balance balance;
+        int balance;
 
         Node() {
-            depth = 0;
-            balance = new Balance();
+            depth = balance = 0;
         }
     }
 
     private Node node;
 
+    public SortedTree() {
+        node = new Node();
+    }
+
     /**
      * Insert an element into the tree.
+     * If this element already exist in the tree, insertion will fail,
+     * returning {@code false}.
      * Throws NullPointerException if the specified element is null.
      * @param e The element to be inserted.
+     * @return {@code true} if the element was successfully inserted.
      */
     public boolean insert(E e) {
         return insert(node, e);
@@ -36,13 +33,24 @@ public class SortedTree<E extends Comparable<? super E>> {
 
     private boolean insert(Node n, E e) {
         if (n.depth == 0) {
-
+            n.data = e;
+            n.left = new Node();
+            n.right = new Node();
+        } else {
+            // if the element is already in the tree, return false
+            if (e.compareTo(n.data) == 0)
+                return false;
+            if (e.compareTo(n.data) < 0) {
+                if (insert(n.left, e)) {
+                    n.balance--;
+                } else return false;
+            }
+            else {
+                if (insert(n.right, e)) {
+                    n.balance++;
+                } else return false;
+            }
         }
-        if (e.compareTo(n.data) == 0)
-            return false;
-        if (e.compareTo(n.data) < 0)
-            return insert(n.left, e);
-        else
-            return insert(n.right, e);
+        return true;
     }
 }
