@@ -11,29 +11,37 @@ public class Test {
     public static void main(String[] args) {
         test = new TestRunner();
         tree = new SortedTree<>();
-        shouldThrow(method(tree, "insert", Comparable.class), null, NullPointerException.class);
+        shouldThrow(tree, "insert", null, Comparable.class, NullPointerException.class);
         test.done();
     }
 
-    private static Method method(Object o, String methodName, Class<?> param) {
-        Class<?> c = o.getClass();
+    /**
+     * Tests that a method throws a specific exception.
+     * @param receiver The object that the method must be called on
+     * @param methodName The name of the method to be called
+     * @param paramClass The class of the parameter to be passed to the method
+     * @param param The parameter to be passed to the method
+     * @param exceptionType The type of exception that the method is expected to throw
+     */
+    private static void shouldThrow(Object receiver, String methodName, Object param,
+                                    Class<?> paramClass,
+                                    Class<? extends Throwable> exceptionType) {
+        Class<?> c = receiver.getClass();
+        Method m;
         try {
-            return c.getMethod(methodName, param);
+            m = c.getMethod(methodName, paramClass);
         } catch (NoSuchMethodException e) {
             test.fail("No such method: " + methodName + " - for class: " + c.getName());
-            return null;
+            return;
         }
-    }
-
-    private static void shouldThrow(Method m, Object o, Class<? extends Throwable> exceptionType) {
         try {
-            if (m == null) return; // Method not found, error already handled
-            m.invoke(tree, o);
-            test.fail(m + " does not throw " + exceptionType.getName());
+            m.invoke(tree, param);
+            return;
         } catch (Throwable e) {
             if (exceptionType.isInstance(e)) {
                 test.pass(m + " throws " + exceptionType.getName());
             }
         }
+        test.fail(m + " does not throw " + exceptionType.getName());
     }
 }
