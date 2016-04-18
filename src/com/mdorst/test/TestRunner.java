@@ -1,4 +1,4 @@
-package com.mdorst.util;
+package com.mdorst.test;
 
 import java.io.PrintStream;
 import java.util.LinkedList;

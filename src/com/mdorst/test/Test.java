@@ -1,6 +1,6 @@
-package com.mdorst;
+package com.mdorst.test;
 
-import com.mdorst.util.TestRunner;
+import com.mdorst.SortedTree;
 
 import java.lang.reflect.Method;
 
