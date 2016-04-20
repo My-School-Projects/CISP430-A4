@@ -92,6 +92,7 @@ public class TestRunner {
      *      function(() -> 3 + 2).returns(5);
      * }
      * @param f The code segment, usually a lambda, which returns the value to be tested.
+     *          The value must be {@code Comparable<?>}.
      * @return The curried function to be called with the expected result.
      */
     public ReturnTest function(Lambda f) {
