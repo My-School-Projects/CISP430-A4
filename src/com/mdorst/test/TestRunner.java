@@ -89,13 +89,13 @@ public class TestRunner {
      * expected by the test.
      * Ex:
      * {@code
-     *      function(() -> 3 + 2).returns(5);
+     *      lambda(() -> 3 + 2).returns(5);
      * }
-     * @param f The code segment, usually a lambda, which returns the value to be tested.
+     * @param f The lambda which returns the value to be tested.
      *          The value must be {@code Comparable<?>}.
      * @return The curried function to be called with the expected result.
      */
-    public ReturnTest function(Lambda f) {
+    public ReturnTest lambda(Lambda f) {
         return (obj) -> {
             Object result;
             try {
