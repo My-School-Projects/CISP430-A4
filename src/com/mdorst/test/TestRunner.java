@@ -1,5 +1,8 @@
 package com.mdorst.test;
 
+import com.mdorst.test.function.FunctionReturnTest;
+import com.mdorst.test.function.TestFunction;
+
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
