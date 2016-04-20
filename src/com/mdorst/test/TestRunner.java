@@ -1,7 +1,7 @@
 package com.mdorst.test;
 
-import com.mdorst.test.function.FunctionReturnTest;
-import com.mdorst.test.function.TestFunction;
+import com.mdorst.test.function.ReturnTest;
+import com.mdorst.test.function.Lambda;
 
 import java.io.PrintStream;
 import java.lang.reflect.Method;
@@ -84,7 +84,7 @@ public class TestRunner {
     /**
      * Test a code segment safely, with all exceptions caught and handled as test failures.
      * This method expects a lambda expression which contains the code to be tested.
-     * This method is curried, and returns a {@code FunctionReturnTest}.
+     * This method is curried, and returns a {@code ReturnTest}.
      * The user is expected to call {@code returns} on this object, passing in the value
      * expected by the test.
      * Ex:
@@ -94,7 +94,7 @@ public class TestRunner {
      * @param f The code segment, usually a lambda, which returns the value to be tested.
      * @return The curried function to be called with the expected result.
      */
-    public FunctionReturnTest function(TestFunction f) {
+    public ReturnTest function(Lambda f) {
         return (obj) -> {
             Object result;
             try {

@@ -1,5 +1,5 @@
 package com.mdorst.test.function;
 
-public interface TestFunction {
+public interface Lambda {
     Comparable<?> call();
 }

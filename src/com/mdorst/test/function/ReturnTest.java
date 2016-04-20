@@ -1,5 +1,5 @@
 package com.mdorst.test.function;
 
-public interface FunctionReturnTest {
+public interface ReturnTest {
     void returns(Comparable<?> o);
 }
