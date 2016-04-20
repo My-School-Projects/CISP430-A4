@@ -1,10 +1,6 @@
 package com.mdorst.test;
 
-import com.mdorst.test.function.ReturnTest;
-import com.mdorst.test.function.Lambda;
-
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -81,22 +77,13 @@ public class TestRunner {
         }
     }
 
-    /**
-     * Test a code segment safely, with all exceptions caught and handled as test failures.
-     * This method expects a lambda expression which contains the code to be tested.
-     * This method is curried, and returns a {@code ReturnTest}.
-     * The user is expected to call {@code returns} on this object, passing in the value
-     * expected by the test.
-     * Ex:
-     * {@code
-     *      lambda(() -> 3 + 2).returns(5);
-     * }
-     * @param f The lambda which returns the value to be tested.
-     *          The value must be {@code Comparable<?>}.
-     * @return The curried function to be called with the expected result.
-     */
-    public ReturnTest lambda(Lambda f) {
-        return (obj) -> {
+    public class LambdaTest {
+        private Lambda f;
+        private String description = "lambda";
+        LambdaTest(Lambda f) {
+            this.f = f;
+        }
+        public void returns(Comparable<?> obj) {
             Object result;
             try {
                 result = f.call();
@@ -108,38 +95,43 @@ public class TestRunner {
                 pass(result + " == " + obj);
             else
                 fail(result + " != " + obj);
-        };
+        }
+        public void throwsException(Class<? extends Throwable> exceptionType) {
+            try {
+                f.call();
+            } catch (Throwable e) {
+                if (exceptionType.isInstance(e)) {
+                    pass(description + " throws " + exceptionType.getName());
+                    return;
+                }
+            }
+            fail(description + " does not throw " + exceptionType.getName());
+        }
+        public LambdaTest describe(String description) {
+            this.description = description;
+            return this;
+        }
     }
 
     /**
-     * Tests that a method throws a specific exception.
-     * @param receiver The object that the method must be called on
-     * @param methodName The name of the method to be called
-     * @param paramClass The class of the parameter to be passed to the method
-     * @param param The parameter to be passed to the method
-     * @param exceptionType The type of exception that the method is expected to throw
+     * A functional interface which facilitates anonymous lambda declarations.
      */
-    public void shouldThrow(Object receiver, String methodName, Object param,
-                                    Class<?> paramClass,
-                                    Class<? extends Throwable> exceptionType) {
-        Class<?> c = receiver.getClass();
-        Method m;
-        try {
-            m = c.getMethod(methodName, paramClass);
-        } catch (NoSuchMethodException e) {
-            fail("No such method: " + methodName + " - for class: " + c.getName());
-            return;
-        }
-        try {
-            m.invoke(receiver, param);
-            return;
-        } catch (Throwable e) {
-            if (exceptionType.isInstance(e.getCause())) {
-                pass(m + " throws " + exceptionType.getName());
-                return;
-            }
-        }
-        fail(m + " does not throw " + exceptionType.getName());
+    public interface Lambda {
+        Comparable<?> call();
+    }
+
+    /**
+     * Test a code segment safely, with all exceptions caught and handled as test failures.
+     * This method expects a lambda expression which contains the code to be tested.
+     * Ex:
+     * {@code
+     *      lambda(() -> 3 + 2).returns(5);
+     * }
+     * @param f The lambda which returns the value to be tested.
+     * @return A {@code LambdaTest} object, on which one of several tests may be performed.
+     */
+    public LambdaTest lambda(Lambda f) {
+        return new LambdaTest(f);
     }
 
     public void log(String message) {
