@@ -92,9 +92,9 @@ public class TestRunner {
                 return;
             }
             if (obj != null && obj.equals(result))
-                pass(result + " == " + obj);
+                pass(description + " == " + obj);
             else
-                fail(result + " != " + obj);
+                fail(description + " != " + obj);
         }
         public void throwsException(Class<? extends Throwable> exceptionType) {
             try {
