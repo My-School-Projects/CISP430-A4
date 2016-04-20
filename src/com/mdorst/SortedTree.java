@@ -14,9 +14,14 @@ public class SortedTree<E extends Comparable<? super E>> {
     }
 
     private Node node;
+    private int size;
 
     public SortedTree() {
         node = new Node();
+    }
+
+    public int size() {
+        return size;
     }
 
     /**
@@ -55,6 +60,7 @@ public class SortedTree<E extends Comparable<? super E>> {
             n.data = e;
             n.left = new Node();
             n.right = new Node();
+            size++;
             return true;
         } else {
             /**
@@ -79,6 +85,7 @@ public class SortedTree<E extends Comparable<? super E>> {
                 } else return false;
             }
         }
+        size++;
         return true;
     }
 }
