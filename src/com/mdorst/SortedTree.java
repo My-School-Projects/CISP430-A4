@@ -5,11 +5,10 @@ public class SortedTree<E extends Comparable<? super E>> {
     class Node {
         E data;
         Node left, right;
-        int depth;
         int balance;
 
         Node() {
-            depth = balance = 0;
+            balance = 0;
         }
     }
 
@@ -54,9 +53,9 @@ public class SortedTree<E extends Comparable<? super E>> {
      */
     private boolean insert(Node n, E e) {
         /**
-         * If depth = 0, insert the element and return up the stack.
+         * If n.data is null, insert the element and return up the stack.
          */
-        if (n.depth == 0) {
+        if (n.data == null) {
             n.data = e;
             n.left = new Node();
             n.right = new Node();
