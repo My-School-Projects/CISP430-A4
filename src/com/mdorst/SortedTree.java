@@ -23,6 +23,17 @@ public class SortedTree<E extends Comparable<? super E>> {
         return size;
     }
 
+    public void traverse(Process<E> process) {
+        traverse(node, process);
+    }
+
+    private void traverse(Node n, Process<E> process) {
+        if (n.data == null) return;
+        traverse(n.left, process);
+        process.call(n.data);
+        traverse(n.right, process);
+    }
+
     /**
      * Insert an element into the tree.
      * If this element already exist in the tree, insertion will fail,
@@ -84,7 +95,6 @@ public class SortedTree<E extends Comparable<? super E>> {
                 } else return false;
             }
         }
-        size++;
         return true;
     }
 }
