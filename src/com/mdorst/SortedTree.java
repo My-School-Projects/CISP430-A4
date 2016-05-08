@@ -23,15 +23,26 @@ public class SortedTree<E extends Comparable<? super E>> {
         return size;
     }
 
-    public void traverse(Process<E> process) {
-        traverse(node, process);
+    public void traverseAscending(Process<E> process) {
+        traverseAscending(node, process);
     }
 
-    private void traverse(Node n, Process<E> process) {
+    private void traverseAscending(Node n, Process<E> process) {
         if (n.data == null) return;
-        traverse(n.left, process);
+        traverseAscending(n.left, process);
         process.call(n.data);
-        traverse(n.right, process);
+        traverseAscending(n.right, process);
+    }
+
+    public void traverseDescending(Process<E> process) {
+        traverseDescending(node, process);
+    }
+
+    public void traverseDescending(Node n, Process<E> process) {
+        if (n.data == null) return;
+        traverseDescending(n.right, process);
+        process.call(n.data);
+        traverseDescending(n.left, process);
     }
 
     /**

@@ -23,7 +23,7 @@ public class Test {
         tree.insert(100);
         tree.insert(0);
         System.out.println();
-        tree.traverse((e) -> System.out.print(e + ", "));
+        tree.traverseAscending((e) -> System.out.print(e + ", "));
         test.done();
     }
 }
