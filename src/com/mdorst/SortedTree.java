@@ -13,10 +13,19 @@ public class SortedTree<E extends Comparable<? super E>> {
         node = new Node();
     }
 
+    /**
+     * Traverse the tree in ascending order, calling {@code process} on each node.
+     * @param process An object which implements the functional interface {@code Process}.
+     */
     public void traverseAscending(Process<E> process) {
         traverseAscending(node, process);
     }
 
+    /**
+     * Recursive implementation of {@code traverseAscending}.
+     * @param n The {@code Node} currently being traversed.
+     * @param process An object which implements the functional interface {@code Process}.
+     */
     private void traverseAscending(Node n, Process<E> process) {
         if (n.data == null) return;
         traverseAscending(n.left, process);
@@ -24,11 +33,20 @@ public class SortedTree<E extends Comparable<? super E>> {
         traverseAscending(n.right, process);
     }
 
+    /**
+     * Traverse the tree in descending order, calling {@code process} on each node.
+     * @param process An object which implements the functional interface {@code Process}.
+     */
     public void traverseDescending(Process<E> process) {
         traverseDescending(node, process);
     }
 
-    public void traverseDescending(Node n, Process<E> process) {
+    /**
+     * Recursive implementation of {@code traverseDescending}.
+     * @param n The {@code Node} currently being traversed.
+     * @param process An object which implements the functional interface {@code Process}.
+     */
+    private void traverseDescending(Node n, Process<E> process) {
         if (n.data == null) return;
         traverseDescending(n.right, process);
         process.call(n.data);
