@@ -108,4 +108,70 @@ public class SortedTree<E extends Comparable<? super E>> {
             }
         }
     }
+
+    public boolean delete(E e) {
+        return searchToDelete(node, e);
+    }
+
+    private boolean searchToDelete(Node n, E e) {
+        if (n.data == null) return false;
+        if (e.compareTo(n.data) == 0) {
+            //
+            // Found it - delete it and return true
+            //
+            if (n.left.data != null) {
+                // node has a child on the left
+                // promote the immediate predecessor
+                n.data = promotePredecessor(n);
+            } else
+            if (n.right.data != null) {
+                // node has a child on the right
+                // promote the immediate successor
+                n.data = promoteSuccessor(n);
+            } else {
+                // node is at the leaf level
+                // delete it
+                n.data = null;
+            }
+            return true;
+        }
+        if (e.compareTo(n.data) < 0) {
+            // e < n.data - traverse left
+            return searchToDelete(n.left, e);
+        } else {
+            // e > n.data - traverse right
+            return searchToDelete(n.right, e);
+        }
+    }
+
+    private E promoteSuccessor(Node n) {
+        if (n.right.data == null) {
+            E data = n.data;
+            n.data = null;
+            return data;
+        }
+        Node successor = leftMost(n.right);
+        return promotePredecessor(successor);
+    }
+
+    private E promotePredecessor(Node n) {
+        if (n.left.data == null) {
+            E data = n.data;
+            n.data = null;
+            return data;
+        }
+        Node predecessor = rightMost(n.left);
+        return promoteSuccessor(predecessor);
+
+    }
+
+    private Node rightMost(Node n) {
+        if (n.right.data == null) return n;
+        return rightMost(n.right);
+    }
+
+    private Node leftMost(Node n) {
+        if (n.left.data == null) return n;
+        return leftMost(n.left);
+    }
 }

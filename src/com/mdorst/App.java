@@ -18,5 +18,17 @@ public class App {
         System.out.println("\nDictionary in descending order:");
         System.out.println("===============================");
         dictionary.traverseDescending(System.out::println);
+        System.out.println("\nDeleting: Isolation");
+        System.out.println("Deleting: Normalization");
+        System.out.println("Deleting: Distributed Processing\n");
+        dictionary.delete("Isolation");
+        dictionary.delete("Normalization");
+        dictionary.delete("Distributed Processing");
+        System.out.println("Dictionary in ascending order:");
+        System.out.println("==============================");
+        dictionary.traverseAscending(System.out::println);
+        System.out.println("\nDictionary in descending order:");
+        System.out.println("===============================");
+        dictionary.traverseDescending(System.out::println);
     }
 }
