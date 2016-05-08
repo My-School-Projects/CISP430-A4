@@ -5,22 +5,12 @@ public class SortedTree<E extends Comparable<? super E>> {
     class Node {
         E data;
         Node left, right;
-        int balance;
-
-        Node() {
-            balance = 0;
-        }
     }
 
     private Node node;
-    private int size;
 
     public SortedTree() {
         node = new Node();
-    }
-
-    public int size() {
-        return size;
     }
 
     public void traverseAscending(Process<E> process) {
@@ -81,7 +71,6 @@ public class SortedTree<E extends Comparable<? super E>> {
             n.data = e;
             n.left = new Node();
             n.right = new Node();
-            size++;
             return true;
         } else {
             /**
@@ -92,20 +81,13 @@ public class SortedTree<E extends Comparable<? super E>> {
             /**
              * If e < n.data, insert on the left subtree.
              * If e > n.data, insert on the right subtree.
-             * If the insertion succeeds, modify this node's balance.
-             * If the insertion fails, return false.
              */
             if (e.compareTo(n.data) < 0) {
-                if (insert(n.left, e)) {
-                    n.balance--;
-                } else return false;
+                return insert(n.left, e);
             }
             else {
-                if (insert(n.right, e)) {
-                    n.balance++;
-                } else return false;
+                return insert(n.right, e);
             }
         }
-        return true;
     }
 }
