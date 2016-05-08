@@ -151,7 +151,7 @@ public class SortedTree<E extends Comparable<? super E>> {
             return data;
         }
         Node successor = leftMost(n.right);
-        return promotePredecessor(successor);
+        return promoteSuccessor(successor);
     }
 
     private E promotePredecessor(Node n) {
@@ -161,7 +161,7 @@ public class SortedTree<E extends Comparable<? super E>> {
             return data;
         }
         Node predecessor = rightMost(n.left);
-        return promoteSuccessor(predecessor);
+        return promotePredecessor(predecessor);
 
     }
 
