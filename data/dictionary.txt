@@ -24,4 +24,4 @@ Uplink
 Control Layer
 MilStd 2167A
 Global Variable
-DistributedProcessing
+Distributed Processing
