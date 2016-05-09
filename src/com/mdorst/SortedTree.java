@@ -112,6 +112,16 @@ public class SortedTree<E extends Comparable<? super E>> {
         return delete(node, e);
     }
 
+    /**
+     * Recursively searches the tree until it finds
+     * the correct element to delete.
+     * If the element is a leaf node, that node will be deleted directly.
+     * If the element is a branch node, one of its children will be promoted to take its place.
+     * If the element is not found, deletion will fail, returning {@code false}.
+     * @param n The current node being searched
+     * @param e The element to be deleted
+     * @return {@code true} if the element was successfully deleted.
+     */
     private boolean delete(Node n, E e) {
         if (n.data == null) return false;
         if (e.compareTo(n.data) == 0) {
