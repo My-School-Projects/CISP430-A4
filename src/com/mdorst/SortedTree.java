@@ -2,7 +2,7 @@ package com.mdorst;
 
 public class SortedTree<E extends Comparable<? super E>> {
 
-    class Node {
+    private class Node {
         E data;
         Node left, right;
     }
