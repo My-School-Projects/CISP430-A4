@@ -1,6 +1,7 @@
 package com.mdorst;
 
 import com.mdorst.container.SortedTree;
+import com.mdorst.functional.Printer;
 import com.mdorst.util.DataInput;
 
 public class App {
@@ -15,10 +16,10 @@ public class App {
         }
         System.out.println("Dictionary in ascending order:");
         System.out.println("==============================");
-        dictionary.traverseAscending(System.out::println);
+        dictionary.traverseAscending(new Printer());
         System.out.println("\nDictionary in descending order:");
         System.out.println("===============================");
-        dictionary.traverseDescending(System.out::println);
+        dictionary.traverseDescending(new Printer());
         System.out.println("\nDeleting: Isolation");
         System.out.println("Deleting: Normalization");
         System.out.println("Deleting: Distributed Processing\n");
@@ -27,9 +28,9 @@ public class App {
         dictionary.delete("Distributed Processing");
         System.out.println("Dictionary in ascending order:");
         System.out.println("==============================");
-        dictionary.traverseAscending(System.out::println);
+        dictionary.traverseAscending(new Printer());
         System.out.println("\nDictionary in descending order:");
         System.out.println("===============================");
-        dictionary.traverseDescending(System.out::println);
+        dictionary.traverseDescending(new Printer());
     }
 }
