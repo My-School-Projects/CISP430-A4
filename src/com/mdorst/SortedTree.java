@@ -151,34 +151,34 @@ public class SortedTree<E extends Comparable<? super E>> {
         }
     }
 
-    private E promoteSuccessor(Node n) {
-        // make a copy of n.data to return later
-        E data = n.data;
+    /**
+     * Promotes the immediate predecessor of {@code n}.
+     * If the immediate predecessor has its own predecessor(s),
+     * their immediate predecessors will be promoted recursively.
+     * @param n The node to be replaced by its immediate predecessor.
+     */
+    private void promoteSuccessor(Node n) {
         if (n.right.data == null) {
             // n has no successor - n is the leaf node
             // delete n.data
             n.data = null;
         } else {
             // n has a successor - promote its successor
-            n.data = promoteSuccessor(leftMost(n.right));
+            n.data = leftMost(n.right).data;
+            promoteSuccessor(leftMost(n.right));
         }
-        // return the copy, to be promoted by the caller
-        return data;
     }
 
-    private E promotePredecessor(Node n) {
-        // make a copy of n.data to return later
-        E data = n.data;
+    private void promotePredecessor(Node n) {
         if (n.left.data == null) {
             // n has no predecessor - n is the leaf node
             // delete n.data
             n.data = null;
         } else {
             // n has a predecessor - promote its predecessor
-            n.data = promotePredecessor(rightMost(n.left));
+            n.data = rightMost(n.left).data;
+            promotePredecessor(rightMost(n.left));
         }
-        // return the copy, to be promoted by the caller
-        return data;
     }
 
     private Node rightMost(Node n) {
