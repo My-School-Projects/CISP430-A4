@@ -62,15 +62,11 @@ public class SortedTree<E extends Comparable<? super E>> {
      * @return {@code true} if the element was successfully inserted.
      */
     public boolean insert(E e) {
-        /**
-         * Null is not allowed. Throw an error if e is null.
-         */
+        // Null is not allowed. Throw an error if e is null.
         if (e == null) {
             throw new NullPointerException();
         }
-        /**
-         * Call the actual recursive insert method
-         */
+        // Call the actual recursive insert method
         return insert(node, e);
     }
 
@@ -82,24 +78,18 @@ public class SortedTree<E extends Comparable<? super E>> {
      * @return {@code true} if the element was successfully inserted.
      */
     private boolean insert(Node n, E e) {
-        /**
-         * If n.data is null, insert the element and return up the stack.
-         */
+        // If n.data is null, insert the element and return up the stack.
         if (n.data == null) {
             n.data = e;
             n.left = new Node();
             n.right = new Node();
             return true;
         } else {
-            /**
-             * If the element is already in the tree, return false.
-             */
+            // If the element is already in the tree, return false.
             if (e.compareTo(n.data) == 0)
                 return false;
-            /**
-             * If e < n.data, insert on the left subtree.
-             * If e > n.data, insert on the right subtree.
-             */
+            // If e < n.data, insert on the left subtree.
+            // If e > n.data, insert on the right subtree.
             if (e.compareTo(n.data) < 0) {
                 return insert(n.left, e);
             }
@@ -110,6 +100,10 @@ public class SortedTree<E extends Comparable<? super E>> {
     }
 
     public boolean delete(E e) {
+        // Null is not allowed. Throw an error if e is null.
+        if (e == null) {
+            throw new NullPointerException();
+        }
         return searchToDelete(node, e);
     }
 
