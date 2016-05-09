@@ -122,12 +122,12 @@ public class SortedTree<E extends Comparable<? super E>> {
             if (n.left.data != null) {
                 // node has a child on the left
                 // promote the immediate predecessor
-                n.data = promotePredecessor(n);
+                promotePredecessor(n);
             } else
             if (n.right.data != null) {
                 // node has a child on the right
                 // promote the immediate successor
-                n.data = promoteSuccessor(n);
+                promoteSuccessor(n);
             } else {
                 // node is at the leaf level
                 // delete it
@@ -145,21 +145,33 @@ public class SortedTree<E extends Comparable<? super E>> {
     }
 
     private E promoteSuccessor(Node n) {
+        // make a copy of n.data to return later
+        E data = n.data;
         if (n.right.data == null) {
-            E data = n.data;
+            // n has no successor - n is the leaf node
+            // delete n.data
             n.data = null;
-            return data;
+        } else {
+            // n has a successor - promote its successor
+            n.data = promoteSuccessor(leftMost(n.right));
         }
-        return promoteSuccessor(leftMost(n.right));
+        // return the copy, to be promoted by the caller
+        return data;
     }
 
     private E promotePredecessor(Node n) {
+        // make a copy of n.data to return later
+        E data = n.data;
         if (n.left.data == null) {
-            E data = n.data;
+            // n has no predecessor - n is the leaf node
+            // delete n.data
             n.data = null;
-            return data;
+        } else {
+            // n has a predecessor - promote its predecessor
+            n.data = promotePredecessor(rightMost(n.left));
         }
-        return promotePredecessor(rightMost(n.left));
+        // return the copy, to be promoted by the caller
+        return data;
     }
 
     private Node rightMost(Node n) {
