@@ -109,10 +109,10 @@ public class SortedTree<E extends Comparable<? super E>> {
         if (e == null) {
             throw new NullPointerException();
         }
-        return searchToDelete(node, e);
+        return delete(node, e);
     }
 
-    private boolean searchToDelete(Node n, E e) {
+    private boolean delete(Node n, E e) {
         if (n.data == null) return false;
         if (e.compareTo(n.data) == 0) {
             //
@@ -136,10 +136,10 @@ public class SortedTree<E extends Comparable<? super E>> {
         }
         if (e.compareTo(n.data) < 0) {
             // e < n.data - traverse left
-            return searchToDelete(n.left, e);
+            return delete(n.left, e);
         } else {
             // e > n.data - traverse right
-            return searchToDelete(n.right, e);
+            return delete(n.right, e);
         }
     }
 
