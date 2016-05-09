@@ -55,8 +55,7 @@ public class SortedTree<E extends Comparable<? super E>> {
 
     /**
      * Insert an element into the tree.
-     * If this element already exist in the tree, insertion will fail,
-     * returning {@code false}.
+     * If this element already exist in the tree, insertion will fail, returning {@code false}.
      * Throws NullPointerException if the specified element is null.
      * @param e The element to be inserted.
      * @return {@code true} if the element was successfully inserted.
@@ -98,7 +97,13 @@ public class SortedTree<E extends Comparable<? super E>> {
             }
         }
     }
-
+    /**
+     * Delete an element from the tree.
+     * If the element does not exist in the tree, deletion will fail, returning {@code false}.
+     * Throws NullPointerException if the specified element is null.
+     * @param e The element to be deleted.
+     * @return {@code true} if the element was successfully deleted.
+     */
     public boolean delete(E e) {
         // Null is not allowed. Throw an error if e is null.
         if (e == null) {
