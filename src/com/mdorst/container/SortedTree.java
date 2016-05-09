@@ -1,4 +1,6 @@
-package com.mdorst;
+package com.mdorst.container;
+
+import com.mdorst.functional.Process;
 
 public class SortedTree<E extends Comparable<? super E>> {
 
