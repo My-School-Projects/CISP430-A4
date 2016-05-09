@@ -152,10 +152,10 @@ public class SortedTree<E extends Comparable<? super E>> {
     }
 
     /**
-     * Promotes the immediate predecessor of {@code n}.
-     * If the immediate predecessor has its own predecessor(s),
-     * their immediate predecessors will be promoted recursively.
-     * @param n The node to be replaced by its immediate predecessor.
+     * Promotes the immediate successor of {@code n}.
+     * If the immediate successor has its own successor(s),
+     * their immediate successors will be promoted recursively.
+     * @param n The node to be replaced by its immediate successor.
      */
     private void promoteSuccessor(Node n) {
         if (n.right.data == null) {
@@ -169,6 +169,12 @@ public class SortedTree<E extends Comparable<? super E>> {
         }
     }
 
+    /**
+     * Promotes the immediate predecessor of {@code n}.
+     * If the immediate predecessor has its own predecessor(s),
+     * their immediate predecessors will be promoted recursively.
+     * @param n The node to be replaced by its immediate predecessor.
+     */
     private void promotePredecessor(Node n) {
         if (n.left.data == null) {
             // n has no predecessor - n is the leaf node
