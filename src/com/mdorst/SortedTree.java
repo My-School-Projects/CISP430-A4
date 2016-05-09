@@ -187,13 +187,27 @@ public class SortedTree<E extends Comparable<? super E>> {
         }
     }
 
+    /**
+     * Does a depth first descent right, starting on {@code n}, and returns the right most descendant.
+     * @param n The node who's right most descendant is to be returned.
+     * @return The right most descendant of {@code n}.
+     */
     private Node rightMost(Node n) {
+        // This node has no right subtree. Return this node.
         if (n.right.data == null) return n;
+        // This node has a right subtree. Continue the descent.
         return rightMost(n.right);
     }
 
+    /**
+     * Does a depth first descent left, starting on {@code n}, and returns the left most descendant.
+     * @param n The node who's left most descendant is to be returned.
+     * @return The left most descendant of {@code n}.
+     */
     private Node leftMost(Node n) {
+        // This node has no left subtree. Return this node.
         if (n.left.data == null) return n;
+        // This node has a left subtree. Continue the descent.
         return leftMost(n.left);
     }
 }
