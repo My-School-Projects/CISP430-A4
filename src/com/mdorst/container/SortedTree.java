@@ -165,8 +165,9 @@ public class SortedTree<E extends Comparable<? super E>> {
             // delete n.data
             n.data = null;
         } else {
-            // n has a successor - promote its successor
+            // n has a successor - promote its direct successor
             n.data = leftMost(n.right).data;
+            // promote the successor(s) of its successor
             promoteSuccessor(leftMost(n.right));
         }
     }
@@ -183,8 +184,9 @@ public class SortedTree<E extends Comparable<? super E>> {
             // delete n.data
             n.data = null;
         } else {
-            // n has a predecessor - promote its predecessor
+            // n has a predecessor - promote its direct predecessor
             n.data = rightMost(n.left).data;
+            // promote the predecessor(s) of its predecessor
             promotePredecessor(rightMost(n.left));
         }
     }
