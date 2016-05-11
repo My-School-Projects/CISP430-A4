@@ -141,6 +141,7 @@ public class SortedTree<E extends Comparable<? super E>> {
                 // node is at the leaf level
                 // delete it
                 n.data = null;
+                n.left = n.right = null;
             }
             return true;
         }
@@ -183,6 +184,7 @@ public class SortedTree<E extends Comparable<? super E>> {
             // n has no predecessor - n is the leaf node
             // delete n.data
             n.data = null;
+            n.left = n.right = null;
         } else {
             // n has a predecessor - promote its direct predecessor
             n.data = rightMost(n.left).data;
