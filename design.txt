@@ -1,0 +1,39 @@
+E        --- is a --- Comparable
+Printer  --- is a --- Process ; where T = String
+
+type T : Generic
+
+class Process <<abstract>>
+  (+) call(T)
+
+class Printer
+  (+) call(String)
+
+type E : Generic
+
+class SortedTree
+  (-) class Node
+        (+) data : E
+        (+) left : Node
+        (+) right : Node
+  (-) node : Node
+  (+) SortedTree()
+  (+) traverseAscending(Process)
+        (-) traverseAscending(Node, Process)
+  (+) traverseDescending(Process)
+        (-) traverseDescending(Node, Process)
+  (+) insert(E) : Boolean
+        (-) insert(Node, E) : Boolean
+  (+) delete(E) : Boolean
+        (-) delete(Node, E) : Boolean
+        (-) promoteSuccessor(Node)
+        (-) promotePredecessor(Node)
+        (-) rightMost(Node) : Node
+        (-) leftMost(Node) : Node
+
+class DataInput
+  (-) data : List of String
+  (-) it : Iterator for String
+  (+) DataInput(String)
+  (+) getLine() : String
+  (+) hasNext() : Boolean
